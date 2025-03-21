@@ -120,8 +120,8 @@ async function fetchCursorUsage(
 function showUsageWebview(usageData: CursorUsageResponse) {
   // 创建并显示Webview
   const panel = vscode.window.createWebviewPanel(
-    "cursorUsageViewer",
-    "Cursor API 使用情况",
+    "cursorBalance",
+    "Cursor Balance",
     vscode.ViewColumn.One,
     {
       enableScripts: true,
@@ -136,13 +136,17 @@ function showUsageWebview(usageData: CursorUsageResponse) {
  * 生成WebView内容
  */
 function getWebviewContent(usageData: CursorUsageResponse): string {
-  // 格式化日期
   const startDate = new Date(usageData.startOfMonth);
   const startDateStr = startDate.toLocaleDateString("zh-CN", {
     year: "numeric",
     month: "long",
     day: "numeric",
   });
+  const endDate = new Date(startDate);
+  endDate.setMonth(endDate.getMonth() + 1);
+  const remainingDays = Math.ceil(
+    (endDate.getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24)
+  );
 
   // 创建各模型的使用情况HTML
   const modelsHtml = createModelsHtml(usageData);
@@ -153,7 +157,7 @@ function getWebviewContent(usageData: CursorUsageResponse): string {
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Cursor API 使用情况</title>
+      <title>Cursor 余额</title>
       <style>
         body {
           font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
@@ -239,8 +243,9 @@ function getWebviewContent(usageData: CursorUsageResponse): string {
     </head>
     <body>
       <div class="container">
-        <h1>Cursor API 使用情况</h1>
+        <h1>Cursor 余额</h1>
         <div class="period">计费周期: ${startDateStr} 开始</div>
+        <div class="period">下次重置: ${remainingDays - 1} 天后</div>
         
         ${modelsHtml}
       </div>
@@ -255,8 +260,8 @@ function getWebviewContent(usageData: CursorUsageResponse): string {
 function createModelsHtml(data: CursorUsageResponse): string {
   const modelKeys = ["gpt-4", "gpt-3.5-turbo", "gpt-4-32k"] as const;
   const modelNames = {
-    "gpt-4": "GPT-4",
-    "gpt-3.5-turbo": "GPT-3.5 Turbo",
+    "gpt-4": "Premium models",
+    "gpt-3.5-turbo": "gpt-4o-mini or cursor-small",
     "gpt-4-32k": "GPT-4 32k",
   };
 

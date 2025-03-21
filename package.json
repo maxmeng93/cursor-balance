@@ -2,7 +2,7 @@
   "name": "cursor-balance",
   "displayName": "Cursor Balance",
   "description": "查看Cursor API使用情况及剩余配额",
-  "version": "0.1.2",
+  "version": "0.1.6",
   "engines": {
     "vscode": "^1.60.0"
   },
@@ -21,7 +21,7 @@
     "commands": [
       {
         "command": "cursor-balance.showBalance",
-        "title": "查看Cursor API使用情况"
+        "title": "查看 Cursor 余额"
       }
     ],
     "configuration": {

@@ -29,13 +29,13 @@
 ## 配置方法
 
 1. 打开 VSCode 设置（文件 > 首选项 > 设置，或使用快捷键 `Ctrl+,`）
-2. 搜索 "Cursor Usage Viewer"
+2. 搜索 "Cursor Balance"
 3. 填写以下设置项：
-   - `cursorUsageViewer.token`：您的 WorkosCursorSessionToken
+   - `cursorBalance.token`：您的 WorkosCursorSessionToken
 
 ## 使用方法
 
-1. 通过命令面板（`Ctrl+Shift+P` 或 `Cmd+Shift+P`）输入 "查看 Cursor API 使用情况"
+1. 通过命令面板（`Ctrl+Shift+P` 或 `Cmd+Shift+P`）输入 "查看 Cursor 余额"
 2. 选择该命令后，插件将显示您的 API 使用情况
 
 ## 隐私说明
